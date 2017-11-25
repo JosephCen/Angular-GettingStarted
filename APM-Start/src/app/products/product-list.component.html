@@ -10,11 +10,16 @@
             </div>
         </div>
         <div class='row'>
+        </div>
+        <div class='row'>
             <table class='table' *ngIf='productArray && productArray.length > 0'>
                 <thead>
                     <tr>
                         <th>
-                            <button class='btn btn-primary' type='button'>Show Image</button>
+                            <button class='btn btn-primary' type='button'
+                                    (click)='toggleProductImage()'>
+                                {{ isShowImage ? 'Hide' : 'Show' }} Image
+                            </button>
                         </th>
                         <th>Product</th>
                         <th>Code</th>
@@ -25,7 +30,11 @@
                 </thead>
                 <tbody>
                     <tr *ngFor='let product of productArray'>
-                        <td>No Image</td>
+                        <td>
+                            <img [src]='product.imageUrl' 
+                                 [style.width.px]='productImageWidth'
+                                 *ngIf='isShowImage'>
+                        </td>
                         <td>{{ product.productName }}</td>
                         <td>{{ product.productId }}</td>
                         <td>{{ product.releaseDate }}</td>
