@@ -12,6 +12,7 @@ export class ProductListComponent {
     productArray: IProduct[] = [
         {
             'productId': 2,
+            'productCode': 'GDN-0023',
             'productName': 'Garden Cart',
             'releaseDate': 'March 18, 2016',
             'description': '<Description of Garden Cart>',
@@ -21,6 +22,7 @@ export class ProductListComponent {
         },
         {
             'productId': 5,
+            'productCode': 'TBX-0048',
             'productName': 'Hammer',
             'releaseDate': 'May 21, 2016',
             'description': '<Description of Garden Hammer>',
@@ -29,6 +31,30 @@ export class ProductListComponent {
             'imageUrl': 'http://openclipart.org/image/300px/svg_to_png/73/rejon_Hammer.png'
         }
     ]
+
+    constructor(){
+        this.filterProductArray = this.productArray
+    }
+
+    _filterProductBy: string = 'cart';
+    get filterProductBy(): string {
+        return this._filterProductBy;
+    }
+    set filterProductBy(value: string) {
+        this._filterProductBy = value;
+
+        this.filterProductArray = this.filterProduct(this._filterProductBy);
+    }
+
+    filterProductArray: IProduct[] = [];
+
+    filterProduct(filterBy: string): IProduct[] {
+        filterBy = filterBy.toLowerCase();
+
+        return this.productArray.filter((value: IProduct) => 
+                    value.productName.toLowerCase().indexOf(filterBy) != -1);
+    }
+
     toggleProductImage(): void {
         this.isShowImage = !this.isShowImage;
     }

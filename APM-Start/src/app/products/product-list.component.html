@@ -4,12 +4,17 @@
     </div>
     <div class='panel-body'>
         <div class='row'>
-            <div class='col-md-2'>Filter by:</div>
-            <div class='col-md-4'>
-                <input type='text' />
+            <div class='col-md-2'>
+                <label for='txtFilter'>Filter by:</label>
+            </div>
+            <div class='col-md-2'>
+                <input id='txtFilter' type='text' [(ngModel)]='filterProductBy' />
             </div>
         </div>
         <div class='row'>
+            <div class='col-md-4'>
+                <span>Filter by: {{ filterProductBy }}</span>
+            </div>
         </div>
         <div class='row'>
             <table class='table' *ngIf='productArray && productArray.length > 0'>
@@ -29,16 +34,16 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor='let product of productArray'>
+                    <tr *ngFor='let product of filterProductArray'>
                         <td>
                             <img [src]='product.imageUrl' 
                                  [style.width.px]='productImageWidth'
                                  *ngIf='isShowImage'>
                         </td>
                         <td>{{ product.productName }}</td>
-                        <td>{{ product.productId }}</td>
+                        <td>{{ product.productCode }}</td>
                         <td>{{ product.releaseDate }}</td>
-                        <td>{{ product.price }}</td>
+                        <td>{{ product.price | currency:'USD':true:'1.2-2' }}</td>
                         <td>{{ product.starRating }}</td>
                     </tr>
                 </tbody>
