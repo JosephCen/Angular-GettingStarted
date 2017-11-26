@@ -17,8 +17,13 @@ export class ProductListComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.productArray = this._productService.getProducts();
-        this.filterProductArray = this.productArray
+        this._productService.getProducts().subscribe(
+            (products: IProduct[]) => {
+                this.productArray = products;
+                this.filterProductArray = this.productArray
+            },
+            error => this.pageTitle = `Product List (Error: {<any>error})`
+        );
     }
 
     _filterProductBy: string = 'cart';
